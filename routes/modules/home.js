@@ -13,7 +13,8 @@ router.get('/:assigned_id', (req, res) => {
     .lean()
     .then(record => {
       if (record) {
-        console.log(record)
+        // console.log(record)
+        res.redirect(record.url)
       } else {
         res.status(404)
         res.send('NotFound')
