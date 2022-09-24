@@ -4,7 +4,7 @@ const Record = require('../../models/record')
 // 定義首頁路由
 
 
-function generateRandomChar(){
+function generateRandomChar() {
   const lowerCaseLetters = 'abcdefghijklmnopqrstuvwxyz'
   const upperCaseLetters = lowerCaseLetters.toUpperCase()
   const numbers = '1234567890'
@@ -13,43 +13,61 @@ function generateRandomChar(){
   return collections[selectionIndex]
 }
 
-function generateRandomString(length){
-  
-  if (typeof length != 'number'){
+function generateRandomString(length) {
+
+  if (typeof length != 'number') {
     return NaN
   }
   let ret = ''
-  for (let i = 0; i < length ; i++){
+  for (let i = 0; i < length; i++) {
     ret += generateRandomChar()
   }
   return ret
 }
 
-function generateUniqueAssignedId(){
-  
+function generateUniqueAssignedId() {
+  let newAssignedId = generateRandomString(5)
+  let record = Record.findOne({ assignedId: newAssignedId })
+  let cnt = 0
+  while (!record) {
+    newAssignedId = generateRandomString(5)
+    record = Record.findOne({ assignedId: newAssignedId })
+    cnt++
+    console.log(cnt)
+  }
+  return newAssignedId
 }
 
-function getAssignedId(url){
-  const record = Record.findOne({url: req.body.url})
-  if (record){
-    return record.assignedId
-  }else{
-    //generate an unique assignedId
-    //create a record
-    //return assignedId
-  }
+
+function getExsitedOrCreateNewRecord(url) {
+  //generate an unique assignedId
+
+  return newRecord
 }
 
 router.post('/', (req, res) => {
-  // Record.create(req.body)
-  console.log(generateRandomString(5))
-  // check if record exist
-  
-  // if true
-  // get the record
-  // else create new one
-  // redirect to sucess page
 
+  // console.log(generateUniqueAssignedId())
+  // check if record exist
+  const url = req.body.url
+  return Record.findOne({ url: url })
+    .lean()
+    .then(record => {
+      if (record) {
+        return record
+      }
+      const newId = generateUniqueAssignedId()
+      return Record.create({
+        assignedId: newId,
+        url: url
+      })
+    })
+    .then(record => {
+      shortenUrl = req.get('Host') + '/' + record.assignedId
+      console.log(shortenUrl)
+      res.render('success', { shortenUrl })
+    })
+    .catch(error => console.log(error))
 })
 // 匯出路由模組
 module.exports = router

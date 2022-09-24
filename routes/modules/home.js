@@ -9,9 +9,11 @@ router.get('/', (req, res) => {
 
 router.get('/:assigned_id', (req, res) => {
   const id = req.params.assigned_id
-  Record.findOne({ assigned_id: id })
+  console.log(id)
+  Record.findOne({ assignedId: id })
     .lean()
     .then(record => {
+      console.log(record.url)
       if (record) {
         // console.log(record)
         res.redirect(record.url)
