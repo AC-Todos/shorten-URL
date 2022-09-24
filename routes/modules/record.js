@@ -50,6 +50,9 @@ router.post('/', (req, res) => {
   // console.log(generateUniqueAssignedId())
   // check if record exist
   const url = req.body.url
+  if (!url){
+    res.render('error')
+  }
   return Record.findOne({ url: url })
     .lean()
     .then(record => {

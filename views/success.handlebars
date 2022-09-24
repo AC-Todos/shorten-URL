@@ -3,8 +3,16 @@
     <h3>Success! Please use this link</h1>
       <a class="btn btn-outline-primary ms-1 pt-2" href="/" role="button">Home</a>
   </div>
-  <p class="text-primary">{{shortenUrl}}</p>
+  <p class="text-primary" id="shorten-url">{{shortenUrl}}</p>
   <div class="d-flex justify-content-around">
-    <button type="submit" class="w-25 btn btn-primary m-1">Copy</button>
+    <button type="submit" onclick="copyText()" class="w-25 btn btn-primary m-1">Copy</button>
   </div>
 </div>
+<script>
+  function copyText() {
+
+    /* Copy text into clipboard */
+    const url = document.querySelector("#shorten-url")
+    navigator.clipboard.writeText(url.textContent);
+  }
+</script>

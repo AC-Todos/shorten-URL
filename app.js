@@ -18,5 +18,5 @@ require('./config/mongoose')
 app.use(routes)
 
 app.listen(PORT, () => {
-  console.log('here we go')
+  console.log(`App is running on http://localhost:${PORT}`)
 })
