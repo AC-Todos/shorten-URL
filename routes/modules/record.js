@@ -39,15 +39,8 @@ function generateUniqueAssignedId() {
 }
 
 
-function getExsitedOrCreateNewRecord(url) {
-  //generate an unique assignedId
-
-  return newRecord
-}
-
 router.post('/', (req, res) => {
 
-  // console.log(generateUniqueAssignedId())
   // check if record exist
   const url = req.body.url
   if (!url){
@@ -67,7 +60,6 @@ router.post('/', (req, res) => {
     })
     .then(record => {
       shortenUrl = req.get('Host') + '/' + record.assignedId
-      console.log(shortenUrl)
       res.render('success', { shortenUrl })
     })
     .catch(error => console.log(error))
