@@ -12,8 +12,11 @@
    ```bash
    npm install
    ```
-
-4. 安裝完畢後，輸入：
+4. 設定 Mongo DB 路徑，樣式如下
+   ```bash
+   export MONGODB_URI="mongodb+srv://<your_account>:<your_password>@cluster0.j9qlz5q.mongodb.net/record2?retryWrites=true&w=majority"
+   ```
+5. 安裝完畢後，輸入：
 
    ```bash
    npm run start
@@ -22,7 +25,7 @@
    ```bash
    npm run dev
    ```
-5. 打開瀏覽器進入到以下網址
+6. 打開瀏覽器進入到以下網址
 
    ```text
     http://localhost:3000

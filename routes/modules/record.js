@@ -28,12 +28,9 @@ function generateRandomString(length) {
 function generateUniqueAssignedId() {
   let newAssignedId = generateRandomString(5)
   let record = Record.findOne({ assignedId: newAssignedId })
-  let cnt = 0
   while (!record) {
     newAssignedId = generateRandomString(5)
     record = Record.findOne({ assignedId: newAssignedId })
-    cnt++
-    console.log(cnt)
   }
   return newAssignedId
 }
